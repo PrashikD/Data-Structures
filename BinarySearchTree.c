@@ -11,18 +11,17 @@ typedef struct Node{
 BSTNode* newNode(int data);
 BSTNode* insert(BSTNode* root, int data);
 BSTNode* search(BSTNode* root, int data);
-
+void printInorder(BSTNode* root);
+void printPreorder(BSTNode* root);
+void printPostorder(BSTNode* root);
 void recurprint2D(BSTNode *root, int space);
+void TreeSort(int unsorted_array[], int size);
 void print2D(BSTNode *root);
 
 int main(){
-    int numbers[] = {};
+    int numbers[] = {7, 4, 8, 5, 6, 9, 3, 2, 1 };
     int n = sizeof(numbers)/sizeof(int);
-    int i; BSTNode* head;
-    for (i = 0; i < n; i++){
-        head = insert(head, numbers[i]);
-    }
-    print2D(head);
+    TreeSort(numbers, n);
     return 1;
 }
 
@@ -55,6 +54,35 @@ BSTNode* search(BSTNode* root, int data){
     return search(root->left, data);
 }
 
+void printInorder(BSTNode* root){
+    if (root == NULL) return;
+    printInorder(root->left);
+    printf("%d ",root->key);
+    printInorder(root->right);
+}
+void printPreorder(BSTNode* root){
+    if (root == NULL) return;
+    printf("%d ",root->key);
+    printPreorder(root->left);
+    printPreorder(root->right);
+}
+void printPostorder(BSTNode* root){
+    if (root == NULL) return;
+    printPostorder(root->left);
+    printPostorder(root->right);
+    printf("%d ",root->key);
+}
+void TreeSort(int unsorted_array[], int size){
+    int i; 
+
+    BSTNode* head = NULL;     
+    for (i = 0; i < size; i++){
+        head = insert(head, unsorted_array[i]);
+    }
+    printInorder(head);
+    return;
+}
+
 void recurprint2D(BSTNode *root, int space){  
     if (root == NULL){
         return;
@@ -72,5 +100,5 @@ void recurprint2D(BSTNode *root, int space){
     recurprint2D(root->left, space); 
 } 
 void print2D(BSTNode *root){ 
-   recurprint2DUtil(root, 0); 
+   recurprint2D(root, 0); 
 } 
